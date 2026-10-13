@@ -23,12 +23,12 @@ echo.
 set TEMP_DIR=%TEMP%\MEMODAInstaller
 if not exist "%TEMP_DIR%" mkdir "%TEMP_DIR%"
 
-set CERT_FILE=%TEMP_DIR%\AIBrainDevCert.crt
+set CERT_FILE=%TEMP_DIR%\memo-certificate.crt
 set SETUP_EXE=%TEMP_DIR%\MEMO-Desktop-Assistant-Setup.exe
 set BASE_URL=https://github.com/hermannhahn/memo-desktop-assistant/releases/latest/download
 
 echo [1/3] Downloading certificate and installer from GitHub...
-curl -fsSL "%BASE_URL%/AIBrainDevCert.crt" -o "%CERT_FILE%"
+curl -fsSL "%BASE_URL%/memo-certificate.crt" -o "%CERT_FILE%"
 curl -fsSL "%BASE_URL%/MEMO-Desktop-Assistant-Setup.exe" -o "%SETUP_EXE%"
 
 if not exist "%SETUP_EXE%" (

