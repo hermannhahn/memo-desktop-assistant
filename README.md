@@ -1,4 +1,4 @@
-# MEMO Desktop Assistant (memo-da) — Release v0.0.3
+# MEMO Desktop Assistant (memo-da) — Release v0.0.4
 
 Official distribution release of **MEMO Desktop Assistant**, powered by MEMOROUTER.
 
@@ -22,31 +22,31 @@ curl -fsSL https://raw.githubusercontent.com/hermannhahn/memo-desktop-assistant/
 
 | Asset | Description |
 |---|---|
-| [📦 MEMO-Desktop-Assistant-Setup-v0.0.3.exe](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.3/MEMO-Desktop-Assistant-Setup-v0.0.3.exe) | Windows Inno Setup Full Installer |
-| [⚡ MEMO-Desktop-Assistant-v0.0.3.exe](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.3/MEMO-Desktop-Assistant-v0.0.3.exe) | Windows Portable Executable (No installation required) |
-| [🤖 memo-da.exe](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.3/memo-da.exe) | Standalone Binary for MEMO Desktop Add-on execution |
-| [📜 install.ps1](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.3/install.ps1) | PowerShell One-Line Web Installer |
-| [📜 install.cmd](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.3/install.cmd) | CMD / curl One-Line Web Installer |
-| [🔐 memo-certificate.crt](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.3/memo-certificate.crt) | Code Signing Certificate |
-| [📜 install-cert.bat](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.3/install-cert.bat) | Certificate Installer Script |
+| [📦 MEMO-Desktop-Assistant-Setup-v0.0.4.exe](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.4/MEMO-Desktop-Assistant-Setup-v0.0.4.exe) | Windows Inno Setup Full Installer |
+| [⚡ MEMO-Desktop-Assistant-v0.0.4.exe](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.4/MEMO-Desktop-Assistant-v0.0.4.exe) | Windows Portable Executable (No installation required) |
+| [🤖 memo-da.exe](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.4/memo-da.exe) | Standalone Binary for MEMO Desktop Add-on execution |
+| [📜 install.ps1](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.4/install.ps1) | PowerShell One-Line Web Installer |
+| [📜 install.cmd](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.4/install.cmd) | CMD / curl One-Line Web Installer |
+| [🔐 memo-certificate.crt](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.4/memo-certificate.crt) | Code Signing Certificate |
+| [📜 install-cert.bat](https://github.com/hermannhahn/memo-desktop-assistant/releases/download/v0.0.4/install-cert.bat) | Certificate Installer Script |
 
 ---
 
 ## 📝 Release Notes
 <!-- lang:en -->
-**Summary:** Update feed redirection, installer terminal decoupling, and certificate standardization.
+**Summary:** Client-side prompt injection cleanup and character settings simplification.
 **Highlights:**
-- Redirected internal update checker from upstream to official repository `hermannhahn/memo-desktop-assistant`.
-- Decoupled application post-install launch from shell console handles using `runasoriginaluser` in Inno Setup to prevent terminal hanging.
-- Standardized code signing certificate naming to `memo-certificate.crt` across CLI, web installers (`install.ps1`, `install.cmd`), and batch helpers.
-- Updated documentation and tasks reflecting certificate architecture and distribution channels.
+- Removed hardcoded mascot system instructions and persona prompt injections from `/v1/responses`, ensuring clean delegation to server-side MEMOROUTER agent personas.
+- Streamlined Character settings tab: retained speech bubble positioning coordinates (Bubble left, top, width) and desktop motion settings; removed name, personality, director summary, and memory/continuation editors.
+- Removed "Add a character" card and legacy avatar generation/import flows.
+- Updated unit and integration tests to align with the streamlined interface layout.
 <!-- lang:pt -->
-**Resumo:** Redirecionamento de updates para o repositório oficial, desvinculação de terminal no instalador e padronização do certificado.
+**Resumo:** Remoção de injeções de prompt no cliente e simplificação das configurações de personagens.
 **Destaques:**
-- Redirecionada a verificação interna de atualizações para o repositório oficial `hermannhahn/memo-desktop-assistant`.
-- Desvinculada a execução pós-instalação dos handles de console do terminal via flag `runasoriginaluser` no Inno Setup.
-- Padronizado o nome do certificado digital para `memo-certificate.crt` na CLI, instaladores web (`install.ps1`, `install.cmd`) e scripts auxiliares.
-- Atualizada a documentação técnica e tarefas refletindo a nova arquitetura do certificado e canais de distribuição.
+- Removidas instruções hardcoded de mascote e injeção de persona do cliente na API `/v1/responses`, garantindo delegação limpa às personas dos agentes configurados no MEMOROUTER.
+- Simplificada a aba de configurações de Personagem: mantidas as coordenadas de posicionamento dos balões de fala (Bubble left, top, width) e movimento; removidos campos de persona, resumo do Character Director e editores de memória/continuação.
+- Removido o card "Add a character" e fluxos legados de importação e geração de avatar.
+- Atualizados os testes unitários e de integração para validação contínua da nova interface.
 
 ---
 
